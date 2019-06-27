@@ -7,7 +7,7 @@
 \alias{get_types_for_region}
 \title{Phone number type}
 \usage{
-get_type(x)
+get_type(x, strict = FALSE)
 
 get_supported_types()
 
@@ -15,6 +15,8 @@ get_types_for_region(x)
 }
 \arguments{
 \item{x}{A \link{phone} vector, or a character vector of \link[=dialr-region]{ISO country codes}.}
+
+\item{strict}{If \code{TRUE}, invalid phone numbers return \code{NA}.}
 }
 \value{
 A character vector of phone types.
@@ -60,7 +62,8 @@ list of supported types.
   
 }
 \seealso{
-Other phone functions: \code{\link{dialr-phone}},
+Other phone functions: \code{\link{dialr-example}},
+  \code{\link{dialr-match}}, \code{\link{dialr-phone}},
   \code{\link{dialr-region}}, \code{\link{dialr-valid}},
   \code{\link{dialr}}
 }

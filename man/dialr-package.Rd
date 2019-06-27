@@ -6,6 +6,8 @@
 \alias{dialr-package}
 \title{dialr: Parse, Format, and Validate International Phone Numbers}
 \description{
+\if{html}{\figure{logo.png}{options: align='right'}}
+
 Parse, format, and validate international phone
     numbers using Google's 'libphonenumber' java library,
     <https://github.com/googlei18n/libphonenumber>.
@@ -17,6 +19,9 @@ Parse, format, and validate international phone
 numbers where no region is provided. (default: \code{"AU"}).
 \item \code{dialr.format}: The default format used to print clean phone numbers. See
 \code{\link[=format.phone]{format.phone()}} for details. (default: \code{"E164"}).
+\item \code{dialr.locale}: The default \href{https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html}{Java locale} used
+to retrieve localised results in \link[=get_geocode]{geographical} and
+\link[=get_carrier]{carrier} information (default: \code{"en"}).
 \item \code{dialr.show_progress}: Should lengthy operations such as \code{\link[=phone]{phone()}} show a
 progress bar? (default: \code{TRUE}).
 }
@@ -33,7 +38,8 @@ Useful links:
 }
 
 
-Other phone functions: \code{\link{dialr-phone}},
+Other phone functions: \code{\link{dialr-example}},
+  \code{\link{dialr-match}}, \code{\link{dialr-phone}},
   \code{\link{dialr-region}}, \code{\link{dialr-type}},
   \code{\link{dialr-valid}}
 }

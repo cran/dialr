@@ -12,9 +12,17 @@
     .jcast(.jnew("java/lang/String", o), "java/lang/CharSequence")
 }
 
+.jstr_to_locale <- function(o) {
+  if (is.na(o))
+    NULL
+  else
+    .jnew("java/util/Locale", o)
+}
+
+# Retrieve and cache singletons
+
 .pnu_cache <- new.env(parent = emptyenv())
 
-# Convenience function - get the current PhoneNumberUtil instance
 .get_phoneNumberUtil <- function() {
   if (is.null(.pnu_cache$phone_util)) {
     .pnu_cache$phone_util <-
@@ -23,6 +31,36 @@
              "getInstance")
   }
   .pnu_cache$phone_util
+}
+
+.get_phoneNumberToCarrierMapper <- function() {
+  if (is.null(.pnu_cache$carrier_mapper)) {
+    .pnu_cache$carrier_mapper <-
+      .jcall("com/google/i18n/phonenumbers/PhoneNumberToCarrierMapper",
+             "Lcom/google/i18n/phonenumbers/PhoneNumberToCarrierMapper;",
+             "getInstance")
+  }
+  .pnu_cache$carrier_mapper
+}
+
+.get_phoneNumberOfflineGeocoder <- function() {
+  if (is.null(.pnu_cache$offline_geocoder)) {
+    .pnu_cache$offline_geocoder <-
+      .jcall("com/google/i18n/phonenumbers/geocoding/PhoneNumberOfflineGeocoder",
+             "Lcom/google/i18n/phonenumbers/geocoding/PhoneNumberOfflineGeocoder;",
+             "getInstance")
+  }
+  .pnu_cache$offline_geocoder
+}
+
+.get_phoneNumberToTimeZonesMapper <- function() {
+  if (is.null(.pnu_cache$timezone_mapper)) {
+    .pnu_cache$timezone_mapper <-
+      .jcall("com/google/i18n/phonenumbers/PhoneNumberToTimeZonesMapper",
+             "Lcom/google/i18n/phonenumbers/PhoneNumberToTimeZonesMapper;",
+             "getInstance")
+  }
+  .pnu_cache$timezone_mapper
 }
 
 # PhoneNumberUtil enums
@@ -47,7 +85,7 @@ validate_phone_format <- function(x) {
   if (!all(x %in% formats)) {
     stop(
       "Some `x` values are unsupported phone formats: ",
-      paste0(unique(x[!x %in% formats]), collapse = ", "),
+      paste0('"', unique(x[!x %in% formats]), '"', collapse = ", "),
       call. = FALSE
     )
   }
@@ -83,7 +121,7 @@ validate_phone_type <- function(x) {
   if (!all(x %in% types)) {
     stop(
       "Some `x` values are unsupported phone types: ",
-      paste0(unique(x[!x %in% types]), collapse = ", "),
+      paste0('"', unique(x[!x %in% types]), '"', collapse = ", "),
       call. = FALSE
     )
   }
@@ -139,7 +177,7 @@ validate_phone_calling_code <- function(x) {
   if (!all(x %in% codes)) {
     stop(
       "Some `x` values are unsupported international calling codes: ",
-      paste0(unique(x[!x %in% codes]), collapse = ", "),
+      paste0('"', unique(x[!x %in% codes]), '"', collapse = ", "),
       call. = FALSE
     )
   }
@@ -160,7 +198,7 @@ validate_phone_region <- function(x) {
   if (!all(x %in% regions)) {
     stop(
       "Some `x` values are not supported ISO country codes: ",
-      paste0(unique(x[!x %in% regions]), collapse = ", "),
+      paste0('"', unique(x[!x %in% regions]), '"', collapse = ", "),
       call. = FALSE
     )
   }
