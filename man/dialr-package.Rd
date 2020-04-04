@@ -6,11 +6,11 @@
 \alias{dialr-package}
 \title{dialr: Parse, Format, and Validate International Phone Numbers}
 \description{
-\if{html}{\figure{logo.png}{options: align='right'}}
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
 Parse, format, and validate international phone
     numbers using Google's 'libphonenumber' java library,
-    <https://github.com/googlei18n/libphonenumber>.
+    <https://github.com/google/libphonenumber>.
 }
 \section{Options}{
 
@@ -33,15 +33,18 @@ Useful links:
   \item \url{https://socialresearchcentre.github.io/dialr}
   \item \url{https://github.com/socialresearchcentre/dialr}
   \item \url{https://github.com/socialresearchcentre/dialrjars}
-  \item \url{https://github.com/googlei18n/libphonenumber}
+  \item \url{https://github.com/google/libphonenumber}
   \item Report bugs at \url{https://github.com/socialresearchcentre/dialr/issues}
 }
 
 
-Other phone functions: \code{\link{dialr-example}},
-  \code{\link{dialr-match}}, \code{\link{dialr-phone}},
-  \code{\link{dialr-region}}, \code{\link{dialr-type}},
-  \code{\link{dialr-valid}}
+Other phone functions: 
+\code{\link{dialr-example}},
+\code{\link{dialr-match}},
+\code{\link{dialr-phone}},
+\code{\link{dialr-region}},
+\code{\link{dialr-type}},
+\code{\link{dialr-valid}}
 }
 \author{
 \strong{Maintainer}: Danny Smith \email{danny@gorcha.org}
