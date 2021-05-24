@@ -1,3 +1,17 @@
+# dialr 0.4.0
+
+## Major changes
+
+* Update R dependency to R >= 3.6.0 to match the rJava package (#21).
+
+* The old one-shot phone processing functions have been hard deprecated and will now throw an error (#22). These will be removed entirely in the next major release.
+
+## Minor changes
+
+* Move rJava initialisation to `.onLoad()` instead of `.onAttach()` (#16). Since dialr is a wrapper for a Java package, rJava has to initialise Java before it will work. Previously, users had to attach dialr with `library(dialr)` to properly initialise Java. Now rJava is initialised when the package is loaded/referenced, so dialr functions can now be used with the `::` notation (e.g. `dialr::phone()`) without a preceding call to `library()`.
+
+* Remove `is_vector_s3()` method at the pillar maintainer's request (#19).
+
 # dialr 0.3.2
 
 * Bump minimum supported version following R 4.0.0 release.
@@ -10,7 +24,7 @@ This release fixes a bug introduced by changes to the treatment of list based cl
 
 In the future dialr may use the vctrs package to implement the `phone` class once vctrs is a bit more stable.
 
-The libphonenumber repo moved from <https://github.com/googlei18n/libphonenumber/> to <https://github.com/google/libphonenumber/> a little while ago. Docs have been updated accordingly (#11).
+The libphonenumber repo moved to <https://github.com/google/libphonenumber/> a little while ago. Docs have been updated accordingly (#11).
 
 # dialr 0.3.0
 

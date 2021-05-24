@@ -1,17 +1,15 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# dialr <a href='https://socialresearchcentre.github.io/dialr'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# dialr <a href='https://socialresearchcentre.github.io/dialr/'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/dialr)](https://cran.r-project.org/package=dialr)
-[![Travis build
-status](https://travis-ci.org/socialresearchcentre/dialr.svg?branch=master)](https://travis-ci.org/socialresearchcentre/dialr)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/socialresearchcentre/dialr?branch=master&svg=true)](https://ci.appveyor.com/project/gorcha/dialr)
+[![R-CMD-check](https://github.com/socialresearchcentre/dialr/workflows/R-CMD-check/badge.svg)](https://github.com/socialresearchcentre/dialr/actions)
 [![Coverage
 status](https://codecov.io/gh/socialresearchcentre/dialr/branch/master/graph/badge.svg)](https://codecov.io/github/socialresearchcentre/dialr?branch=master)
 <!-- badges: end -->
