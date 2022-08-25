@@ -14,7 +14,19 @@
 
 <title>Introduction to dialr</title>
 
-<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -24,6 +36,7 @@
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
     </style>
+
 
 
 <style type="text/css">
@@ -107,13 +120,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -125,7 +145,187 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -141,13 +341,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<p>dialr is an R interface to <a href="https://github.com/google/libphonenumber">Google’s libphonenumber java library</a>.</p>
-<p>libphonenumber defines the <code>PhoneNumberUtil</code> class, a set of functions for extracting information from and performing processing on a parsed <code>Phonenumber</code> object. A phone number must be parsed before any other operations (e.g. checking phone number validity, formatting) can be performed.</p>
-<p>dialr provides an interface to these functions to easily parse and process phone numbers in R.</p>
+<p>dialr is an R interface to <a href="https://github.com/google/libphonenumber">Google’s libphonenumber
+java library</a>.</p>
+<p>libphonenumber defines the <code>PhoneNumberUtil</code> class, a set
+of functions for extracting information from and performing processing
+on a parsed <code>Phonenumber</code> object. A phone number must be
+parsed before any other operations (e.g. checking phone number validity,
+formatting) can be performed.</p>
+<p>dialr provides an interface to these functions to easily parse and
+process phone numbers in R.</p>
 <div id="parsing-phone-numbers" class="section level2">
 <h2>Parsing phone numbers</h2>
-<p>A phone class vector stores a parsed java <code>Phonenumber</code> object for further processing alongside the original raw text phone number and default region. This “default region” is required to determine the processing context for non-international numbers.</p>
-<p>To create a phone vector, use the <code>phone()</code> function. This takes a character vector of phone numbers to parse and a default region for phone numbers not stored in an international format (i.e. with a leading “+”).</p>
+<p>A phone class vector stores a parsed java <code>Phonenumber</code>
+object for further processing alongside the original raw text phone
+number and default region. This “default region” is required to
+determine the processing context for non-international numbers.</p>
+<p>To create a phone vector, use the <code>phone()</code> function. This
+takes a character vector of phone numbers to parse and a default region
+for phone numbers not stored in an international format (i.e. with a
+leading “+”).</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dialr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Parse phone number vector</span></span>
@@ -176,14 +388,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="comparing-phone-numbers" class="section level2">
 <h2>Comparing phone numbers</h2>
-<p>Equality comparisons for phone numbers ignore formatting differences and compare the underlying phone number.</p>
+<p>Equality comparisons for phone numbers ignore formatting differences
+and compare the underlying phone number.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">phone</span>(<span class="st">&quot;0404 753 123&quot;</span>, <span class="st">&quot;AU&quot;</span>) <span class="sc">==</span> <span class="fu">phone</span>(<span class="st">&quot;+61404753123&quot;</span>, <span class="st">&quot;US&quot;</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">phone</span>(<span class="st">&quot;0404 753 123&quot;</span>, <span class="st">&quot;AU&quot;</span>) <span class="sc">==</span> <span class="fu">phone</span>(<span class="st">&quot;0404 753 123&quot;</span>, <span class="st">&quot;US&quot;</span>)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">phone</span>(<span class="st">&quot;0404 753 123&quot;</span>, <span class="st">&quot;AU&quot;</span>) <span class="sc">!=</span> <span class="fu">phone</span>(<span class="st">&quot;0404 753 123&quot;</span>, <span class="st">&quot;US&quot;</span>)</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
-<p>Parsed phone numbers can also be compared to character phone numbers stored in an international format.</p>
+<p>Parsed phone numbers can also be compared to character phone numbers
+stored in an international format.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">phone</span>(<span class="st">&quot;0404 753 123&quot;</span>, <span class="st">&quot;AU&quot;</span>) <span class="sc">==</span> <span class="fu">c</span>(<span class="st">&quot;+61404753123&quot;</span>, <span class="st">&quot;0404 753 123&quot;</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  TRUE FALSE</span></span></code></pre></div>
 <p>Use <code>is_match()</code> for more customisable comparisons.</p>
@@ -196,9 +410,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="formatting-phone-numbers" class="section level2">
 <h2>Formatting phone numbers</h2>
-<p>The phone class has a <code>format()</code> method implementing libphonenumber’s core formatting functionality.</p>
-<p>There are four phone number formats used by libphonenumber (see “Further reading” for details): <code>&quot;E164&quot;</code>, <code>&quot;NATIONAL&quot;</code>, <code>&quot;INTERNATIONAL&quot;</code> and<code>&quot;RFC3966&quot;</code>. These can be specified by the <code>format</code> argument, or a default can be specifed in option <code>dialr.format</code>.</p>
-<p>If <code>clean = TRUE</code>, all non-numeric characters are removed except for a leading <code>+</code>. <code>clean = TRUE</code> by default.</p>
+<p>The phone class has a <code>format()</code> method implementing
+libphonenumber’s core formatting functionality.</p>
+<p>There are four phone number formats used by libphonenumber (see
+“Further reading” for details): <code>&quot;E164&quot;</code>,
+<code>&quot;NATIONAL&quot;</code>, <code>&quot;INTERNATIONAL&quot;</code>
+and<code>&quot;RFC3966&quot;</code>. These can be specified by the
+<code>format</code> argument, or a default can be specifed in option
+<code>dialr.format</code>.</p>
+<p>If <code>clean = TRUE</code>, all non-numeric characters are removed
+except for a leading <code>+</code>. <code>clean = TRUE</code> by
+default.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">phone</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0123</span>, <span class="st">&quot;0404 753 123&quot;</span>, <span class="st">&quot;61410123817&quot;</span>, <span class="st">&quot;+12015550123&quot;</span>), <span class="st">&quot;AU&quot;</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(x, <span class="at">format =</span> <span class="st">&quot;RFC3966&quot;</span>)</span>
@@ -228,7 +450,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(x)</span>
 <span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] NA           &quot;123&quot;        &quot;0404753123&quot; &quot;0410123817&quot; &quot;2015550123&quot;</span></span>
 <span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">dialr.format =</span> <span class="st">&quot;E164&quot;</span>)</span></code></pre></div>
-<p>If the <code>home</code> argument is supplied, the phone number is formatted for dialling from the specified country.</p>
+<p>If the <code>home</code> argument is supplied, the phone number is
+formatted for dialling from the specified country.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(x, <span class="at">home =</span> <span class="st">&quot;AU&quot;</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] NA                &quot;123&quot;             &quot;0404753123&quot;      &quot;0410123817&quot;     </span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;001112015550123&quot;</span></span>
@@ -238,12 +461,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(x, <span class="at">home =</span> <span class="st">&quot;JP&quot;</span>)</span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] NA               &quot;01061123&quot;       &quot;01061404753123&quot; &quot;01061410123817&quot;</span></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;01012015550123&quot;</span></span></code></pre></div>
-<p>If <code>strict = TRUE</code>, invalid phone numbers (determined using <code>is_valid()</code>) return <code>NA</code>.</p>
+<p>If <code>strict = TRUE</code>, invalid phone numbers (determined
+using <code>is_valid()</code>) return <code>NA</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(x)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] NA             &quot;+61123&quot;       &quot;+61404753123&quot; &quot;+61410123817&quot; &quot;+12015550123&quot;</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(x, <span class="at">strict =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] NA             NA             &quot;+61404753123&quot; &quot;+61410123817&quot; &quot;+12015550123&quot;</span></span></code></pre></div>
-<p>By default, <code>as.character()</code> returns the raw text phone number. Use <code>raw = FALSE</code> to use the <code>format()</code> method instead.</p>
+<p>By default, <code>as.character()</code> returns the raw text phone
+number. Use <code>raw = FALSE</code> to use the <code>format()</code>
+method instead.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>(x)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;0&quot;            &quot;123&quot;          &quot;0404 753 123&quot; &quot;61410123817&quot;  &quot;+12015550123&quot;</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>(x, <span class="at">raw =</span> <span class="cn">FALSE</span>)</span>
@@ -267,36 +493,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">region =</span> get_region,</span>
 <span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">type =</span> get_type,</span>
 <span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">clean =</span> format))</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 x 12</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      id       phone1       phone2 country phone1_valid phone2_valid</span></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt;      &lt;phone&gt;      &lt;phone&gt; &lt;chr&gt;   &lt;lgl&gt;        &lt;lgl&gt;       </span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1           NA +61393881234 AU      FALSE        TRUE        </span></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2       +61123      +611234 AU      FALSE        FALSE       </span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     3 +61404753123 +12015550123 AU      TRUE         TRUE        </span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     4 +61410123817           NA AU      TRUE         FALSE       </span></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 6 more variables: phone1_region &lt;chr&gt;, phone2_region &lt;chr&gt;,</span></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   phone1_type &lt;chr&gt;, phone2_type &lt;chr&gt;, phone1_clean &lt;chr&gt;,</span></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   phone2_clean &lt;chr&gt;</span></span></code></pre></div>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 × 12</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      id       phone1       phone2 country phone1_valid phone2_…¹ phone…² phone…³</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt;      &lt;phone&gt;      &lt;phone&gt; &lt;chr&gt;   &lt;lgl&gt;        &lt;lgl&gt;     &lt;chr&gt;   &lt;chr&gt;  </span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1           NA +61393881234 AU      FALSE        TRUE      &lt;NA&gt;    AU     </span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2       +61123      +611234 AU      FALSE        FALSE     &lt;NA&gt;    &lt;NA&gt;   </span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     3 +61404753123 +12015550123 AU      TRUE         TRUE      AU      US     </span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     4 +61410123817           NA AU      TRUE         FALSE     AU      &lt;NA&gt;   </span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 4 more variables: phone1_type &lt;chr&gt;, phone2_type &lt;chr&gt;,</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   phone1_clean &lt;chr&gt;, phone2_clean &lt;chr&gt;, and abbreviated variable names</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   ¹​phone2_valid, ²​phone1_region, ³​phone2_region</span></span></code></pre></div>
 </div>
 <div id="further-reading" class="section level2">
 <h2>Further reading</h2>
 <div id="libphonenumber" class="section level3">
 <h3>libphonenumber</h3>
 <p><a href="https://github.com/google/libphonenumber">GitHub</a></p>
-<p><a href="https://github.com/google/libphonenumber/blob/master/FAQ.md">Frequently Asked Questions</a></p>
-<p><a href="https://github.com/google/libphonenumber/blob/master/FALSEHOODS.md">Falsehoods Programmers Believe About Phone Numbers</a></p>
+<p><a href="https://github.com/google/libphonenumber/blob/master/FAQ.md">Frequently
+Asked Questions</a></p>
+<p><a href="https://github.com/google/libphonenumber/blob/master/FALSEHOODS.md">Falsehoods
+Programmers Believe About Phone Numbers</a></p>
 <p><a href="https://javadoc.io/doc/com.googlecode.libphonenumber/libphonenumber/">javadocs</a></p>
 </div>
 <div id="phone-number-format-standards" class="section level3">
 <h3>Phone number format standards</h3>
-<p><code>&quot;E164&quot;</code>: general format for international telephone numbers from <a href="https://en.wikipedia.org/wiki/E.164">ITU-T Recommendation E.164</a></p>
-<p><code>&quot;NATIONAL&quot;</code>: national notation from <a href="https://en.wikipedia.org/wiki/E.123">ITU-T Recommendation E.123</a></p>
-<p><code>&quot;INTERNATIONAL&quot;</code>: international notation from <a href="https://en.wikipedia.org/wiki/E.123">ITU-T Recommendation E.123</a></p>
-<p><code>&quot;RFC3966&quot;</code>: “tel” URI syntax from the IETF <a href="https://datatracker.ietf.org/doc/rfc3966/">tel URI for Telephone Numbers</a></p>
+<p><code>&quot;E164&quot;</code>: general format for international telephone
+numbers from <a href="https://en.wikipedia.org/wiki/E.164">ITU-T
+Recommendation E.164</a></p>
+<p><code>&quot;NATIONAL&quot;</code>: national notation from <a href="https://en.wikipedia.org/wiki/E.123">ITU-T Recommendation
+E.123</a></p>
+<p><code>&quot;INTERNATIONAL&quot;</code>: international notation from <a href="https://en.wikipedia.org/wiki/E.123">ITU-T Recommendation
+E.123</a></p>
+<p><code>&quot;RFC3966&quot;</code>: “tel” URI syntax from the IETF <a href="https://datatracker.ietf.org/doc/rfc3966/">tel URI for Telephone
+Numbers</a></p>
 </div>
 <div id="iso-country-codes" class="section level3">
 <h3>ISO country codes</h3>
-<p><a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a></p>
+<p><a href="https://www.iso.org/iso-3166-country-codes.html">ISO
+3166</a></p>
 <p><a href="https://en.wikipedia.org/wiki/ISO_3166-1">Wikipedia</a></p>
 </div>
 </div>
