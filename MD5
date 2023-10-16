@@ -1,6 +1,6 @@
-a5f71d039dd78e1945cdd84a1f85178e *DESCRIPTION
+8f78211d7d9265a60670917b1907922e *DESCRIPTION
 c5b9f9749b87c1794bd760b4814ab3a5 *NAMESPACE
-ffda72c5cebd654d549eabf7eeb7d2f0 *NEWS.md
+3db020a47b438b5424439606068f7b73 *NEWS.md
 f7b2feddf760c11af5924abf1630fcc1 *R/carrier.R
 e3db0258ea0b22d5d3af991cb422812d *R/cc.R
 ff83d76ac7ba024fad24ec15e9f3a897 *R/deprec-phone_old.R
@@ -12,15 +12,15 @@ d146de01c3485a560b58d0c78e826b8f *R/match.R
 640b579b6bcdd5f1185858eb30428ba7 *R/phoneNumberUtil.R
 2187d7a7208209ab10b6d69bf0e84297 *R/pillar.R
 c067b7297110f88e0ed1f48a73275fdf *R/region.R
-d692ceb51d5742455f966ec9e06b0e74 *R/sysdata.rda
+b15f8b320973a0018554026e97761844 *R/sysdata.rda
 aacb0007249069b1ff23714cbfe6941a *R/timezone.R
 db61e6b87b0f6b01b52cbd18fb749aa1 *R/type.R
 efd14771e87439eb205e8a81fb60909a *R/zzz.R
-20818e36e465a922152e375aa5839ac6 *README.md
-eaafd6c7e1d5e4cd523d93cefe38e5b8 *build/vignette.rds
+41a6c53221e2d0c6d1bcea3277e80416 *README.md
+438be0fd48ba30958b301ae0ef4273ab *build/vignette.rds
 464a49ccbae80cc8eeccf47e66ab02a6 *inst/doc/dialr.R
 fc2eb0f1d21ca5ed907e5fd2f821463d *inst/doc/dialr.Rmd
-1c962d99bbaa33dbf2c15ca42cad8df1 *inst/doc/dialr.html
+543e0be7cfc5e61956f60d04996a7d2e *inst/doc/dialr.html
 f35149747db4d89fe7d91355bf753a9b *man/check_cc.Rd
 8ac72ae786dc4e35929d89f97d07fa9c *man/dialr-example.Rd
 ece4212138eac288eef7aa3459c99625 *man/dialr-match.Rd
@@ -40,7 +40,7 @@ fb601f2cb4e82d888476b8215760282c *man/phone_old.Rd
 0430551b5bc83d8d87f44c9a4777055b *tests/testthat/_snaps/tibble.md
 9a1355ef3b4cdd1f1da2a3360d3da5da *tests/testthat/setup-all.R
 41527c60d761b793f55d2f7bee3be139 *tests/testthat/test-carrier.R
-c8f41bddd2f6af90e675739d87a90155 *tests/testthat/test-cc.R
+6b88c50e7110b6ebeea86eaa01665584 *tests/testthat/test-cc.R
 320547e8bd1640dbe58c74246fb294ee *tests/testthat/test-example.R
 ba39aa1f090b6aec60f8f200b5d77da0 *tests/testthat/test-geocoder.R
 0daf8dd69b896e8186df9c01652d921f *tests/testthat/test-get.R
